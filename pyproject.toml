@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "mylangrobot"
+version = "0.1.0"
+description = ""
+authors = ["nekanat <nekanat.stock@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+pymycobot = "^3.2.9"
+openai = "^1.2.0"
+python-dotenv = "^1.0.0"
+opencv-python = "^4.8.1.78"
+segment-anything = {git = "https://github.com/facebookresearch/segment-anything.git"}
+supervision = "^0.16.0"
+speechrecognition = "^3.10.0"
+pyaudio = "^0.2.14"
+soundfile = "^0.12.1"
+openai-whisper = "^20231106"
+torchvision = "0.16.0"
+pydub = "^0.25.1"
+kinpy = "^0.4.2"
+pydantic = "^2.5.2"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.11.0"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
