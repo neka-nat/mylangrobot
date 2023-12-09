@@ -9,7 +9,7 @@ from pymycobot.mycobot import MyCobot
 
 
 class MyCobotSettings(BaseModel):
-    urdf_path: str = os.path.join(os.path.dirname(__file__), "../data/mycobot/mycobot.urdf")
+    urdf_path: str = "../data/mycobot/mycobot.urdf"
     end_effector_name: str = "camera_flange"
     port: str = "/dev/ttyACM0"
     baud: int = 115200
@@ -27,6 +27,10 @@ class MyCobotSettings(BaseModel):
         "drop": [-45, 20, -130, 20, 0, 0],
     }
 
+    @property
+    def full_urdf_path(self) -> str:
+        return os.path.join(os.path.dirname(__file__), self.urdf_path)
+
 
 class MyCobotController:
     def __init__(self, **kwargs):
@@ -37,10 +41,10 @@ class MyCobotController:
         self._default_z_speed = settings.default_z_speed
         self._command_timeout = settings.command_timeout
         self._use_gravity_compensation = settings.use_gravity_compensation
-        self._sim = kp.build_serial_chain_from_urdf(open(settings.urdf_path).read(), settings.end_effector_name)
+        self._sim = kp.build_serial_chain_from_urdf(open(settings.full_urdf_path).read(), settings.end_effector_name)
         self._current_position = self._mycobot.get_angles()
         self.positions = settings.positions
-        self.capture_coord = self._calc_camera_lens_coords_on_capture_position(settings.urdf_path)
+        self.capture_coord = self._calc_camera_lens_coords_on_capture_position(settings.full_urdf_path)
         self.end_effector_height = settings.end_effector_height  # pump head offset
         self.object_height = settings.object_height
         self.release_height = settings.release_height

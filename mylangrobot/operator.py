@@ -17,7 +17,7 @@ from .robot_controller import MyCobotController, MyCobotSettings
 class SOMOperator:
     def __init__(
         self,
-        pixel_size_on_capture_position: float = 0.44 * 1.0e-3,  # [m/pixel]
+        pixel_size_on_capture_position: float = 0.43 * 1.0e-3,  # [m/pixel]
         interface_type: InterfaceType = InterfaceType.AUDIO,
         camera_id: int = 0,
         language: str = "English",
@@ -37,6 +37,7 @@ class SOMOperator:
         self._language = language
         self._pixel_size_on_capture_position = pixel_size_on_capture_position
         self._current_frame = None
+        self._cam_center = None
         self.capture_image_callback = capture_image_callback or (lambda _: self.save_current_image("capture.png"))
         self.annotate_image_callback = annotate_image_callback or (lambda x: cv2.imwrite("annotated.png", x))
 
@@ -97,9 +98,11 @@ class SOMOperator:
             raise RuntimeError("Failed to read frame")
         self._current_frame = frame
         self._current_frame = cv2.rotate(self._current_frame, cv2.ROTATE_180)
-        # crop the right side of the image, because the end effector is on the right side
-        _, width, _ = self._current_frame.shape
-        self._current_frame = self._current_frame[:, :-(width // 8), :]
+        # Since the robot body is on the bottom of the image and the end effector is on the right,
+        # crop the bottom and right sides of the image.
+        height, width, _ = self._current_frame.shape
+        self._cam_center = np.array([height / 2, width / 2])
+        self._current_frame = self._current_frame[: -(height // 4), : -(width // 8), :]
 
     def run(self):
         chat_history = []
@@ -122,7 +125,7 @@ class SOMOperator:
         time.sleep(1)
         self.update_current_frame()
         self.capture_image_callback(self._current_frame)
-        res, response_type, obj_centers = self.process_image(self._current_frame, input_text)
+        res, response_type, obj_centers = self.process_image(self._current_frame, self._cam_center, input_text)
         if response_type == ResponseType.QUESTION:
             self._interface.output(res)
             return (input_text, res)
@@ -134,7 +137,7 @@ class SOMOperator:
             return (input_text, "<Execute code>")
         return None
 
-    def process_image(self, image: np.ndarray, text: str) -> tuple[str, ResponseType, list]:
+    def process_image(self, image: np.ndarray, cam_center: np.ndarray, text: str) -> tuple[str, ResponseType, list]:
         """Process image and return response text and response type.
 
         Note:
@@ -148,7 +151,6 @@ class SOMOperator:
         print("[SOMOperator]", response_type, res)
         # calculate center of masks
         centers = []
-        cam_center = np.array([image.shape[0] / 2, image.shape[1] / 2])
         if response_type == ResponseType.CODE:
             for mask in detections.mask:
                 center = np.mean(np.where(mask == True), axis=1)

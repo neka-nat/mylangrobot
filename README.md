@@ -36,6 +36,35 @@ cd scripts
 python demo.py
 ```
 
+## Settings
+
+You can configure the robot using the `configs/settings.yml` file.
+Please set the connection port with the robot, the camera ID, the suction pin number, and other hardware-related settings according to your own environment.
+
+```yaml
+pixel_size_on_capture_position: 0.44 * 1.0e-3  # [m/pixel]
+interface_type: "AUDIO"
+camera_id: 4
+language: "Japanese"
+mycobot_settings:
+  urdf_path: "../data/mycobot/mycobot.urdf"
+  end_effector_name: "camera_flange"
+  port: "/dev/ttyACM0"
+  baud: 115200
+  default_speed: 40
+  default_z_speed: 20
+  suction_pin: 5
+  command_timeout: 5
+  use_gravity_compensation: false
+  end_effector_height: 0.065  # pump head offset
+  object_height: 0.01
+  release_height: 0.05
+  positions:
+    home: [0, 20, -130, 20, 0, 0]
+    capture: [0, 0, -30, -60, 0, -45]
+    drop: [-45, 20, -130, 20, 0, 0]
+```
+
 ## Related links
 
 * [Set-of-Mark-Visual-Prompting-for-GPT-4V](https://github.com/microsoft/SoM)
