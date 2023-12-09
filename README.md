@@ -54,7 +54,7 @@ release()
 
 ### Generated motion
 
-
+https://github.com/neka-nat/mylangrobot/assets/991515/858ae25a-405a-4ad1-afc2-fbf6934adac3
 
 ## Settings
 
