@@ -36,13 +36,33 @@ cd scripts
 python demo.py
 ```
 
+## Results
+
+### Captured image and Annotated image
+
+![capture](assets/capture.png)
+![annotated](assets/annotated.png)
+
+### Generated program
+
+```
+move_to_object(4)
+grab()
+move_to_place('drop')
+release()
+```
+
+### Generated motion
+
+
+
 ## Settings
 
 You can configure the robot using the `configs/settings.yml` file.
 Please set the connection port with the robot, the camera ID, the suction pin number, and other hardware-related settings according to your own environment.
 
 ```yaml
-pixel_size_on_capture_position: 0.44 * 1.0e-3  # [m/pixel]
+pixel_size_on_capture_position: 0.00043  # [m/pixel]
 interface_type: "AUDIO"
 camera_id: 4
 language: "Japanese"
