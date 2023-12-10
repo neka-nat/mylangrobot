@@ -22,8 +22,8 @@ For image interpretation, [SoM](https://som-gpt4v.github.io/) is used. This enab
 
 ```sh
 sudo apt install portaudio19-dev
-git clone https://github.com/neka-nat/lang-robotics.git
-cd lang-robotics
+git clone https://github.com/neka-nat/mylangrobot.git
+cd mylangrobot
 pip install -e .  # or poetry install
 ```
 
