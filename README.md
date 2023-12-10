@@ -64,7 +64,7 @@ Please set the connection port with the robot, the camera ID, the suction pin nu
 ```yaml
 pixel_size_on_capture_position: 0.00043  # [m/pixel]
 interface_type: "AUDIO"
-camera_id: 4
+camera_id: 0
 language: "Japanese"
 mycobot_settings:
   urdf_path: "../data/mycobot/mycobot.urdf"
