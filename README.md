@@ -11,6 +11,13 @@ By utilizing ChatGPT for image interpretation, generating pick and place program
 
 For image interpretation, [SoM](https://som-gpt4v.github.io/) is used. This enables more specific object designation by GPT-4V by using images that overlay numbers on segmented images.
 
+## Dependencies
+
+* openai
+* openai-whisper
+* segment-anything
+* pymycobot
+
 ## Installation
 
 ```sh
