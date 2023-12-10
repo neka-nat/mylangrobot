@@ -30,10 +30,20 @@ cp .env.sample .env
 
 ## Demo
 
+Interactive demonstration with microphone.
+
 ```sh
 sudo chmod 666 /dev/ttyUSBxxx
 cd scripts
 python demo.py
+```
+
+Demonstration of sending a single text command.
+
+```sh
+sudo chmod 666 /dev/ttyUSBxxx
+cd scripts
+python oneshot_demo.py --prompt チョコレートの箱取って。
 ```
 
 ## Results
