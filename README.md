@@ -18,6 +18,12 @@ For image interpretation, [SoM](https://som-gpt4v.github.io/) is used. This enab
 * segment-anything
 * pymycobot
 
+## Hardware
+
+* [myCobot](https://shop.elephantrobotics.com/collections/mycobot/products/mycobot-worlds-smallest-and-lightest-six-axis-collaborative-robot)
+* [suction-pump](https://shop.elephantrobotics.com/collections/suction-pumps/products/suction-pump-2-0)
+* [camera-flange](https://shop.elephantrobotics.com/collections/camera-modules/products/camera-flange-2-0)
+
 ## Installation
 
 ```sh
